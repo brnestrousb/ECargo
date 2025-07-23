@@ -12,6 +12,7 @@ class HelpHomePage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
+            // Bagian Header
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -29,10 +30,24 @@ class HelpHomePage extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    ),
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration:BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.black,
+                              size: 20,
+                          ),
+                        ),
+                      ),
+                    )
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -44,25 +59,28 @@ class HelpHomePage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 20), //
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       ContactOption(
                         iconPath: 'assets/icons/call.svg',
                         label: 'Hubungi\nKami',
+                        onTap: (){},
                       ),
                       ContactOption(
                         iconPath: 'assets/icons/whatsapp.svg',
                         label: 'Whatsapp',
+                        onTap: (){},
                       ),
                       ContactOption(
                         iconPath: 'assets/icons/history.svg',
                         label: 'Riwayat\nBantuan',
+                        onTap: () {},
                       ),
                     ],
                   ),
-                  SizedBox(height: 20), // Too Many Arguments
+                  const SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(
                       hintText: "Cari Masalah Anda..",
@@ -76,53 +94,57 @@ class HelpHomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: const [
-                          HelpCategoryCard(
-                            icon: Icons.local_shipping,
-                            title: 'Pengiriman',
-                            question: [
-                              'Bagaimana cara melacak status pengiriman saya?',
-                              'Bagaimana estimasi waktu pengiriman?',
-                              'Apakah bisa mengganti alamat pengiriman setelah transaksi?',
-                            ],
-                          ),
-                          HelpCategoryCard(
-                            icon: Icons.gavel,
-                            title: 'Lelang',
-                            question: [
-                              'Bagaimana cara mengikuti lelang?',
-                              'Apa saja syarat mengikuti lelang?',
-                              'Apakah lelang bersifat real-time?',
-                            ],
-                          ),
-                          HelpCategoryCard(
-                            icon: Icons.receipt_long,
-                            title: 'Transaksi',
-                            question: [
-                              'Bagaimana cara melihat riwayat transaksi?',
-                              'Apakah saya bisa membatalkan transaksi?',
-                              'Bagaimana jika pembayaran gagal?',
-                            ],
-                          ),
-                          HelpCategoryCard(
-                            icon: Icons.delivery_dining,
-                            title: 'Kurir',
-                            question: [
-                              'Bagaimana memilih kurir saat checkout?',
-                              'Kurir tidak datang, apa yang harus saya lakukan?',
-                              'Apakah bisa menjadwalkan ulang pengiriman?',
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: 16),
                 ],
+              ),
+            ),
+
+            // Bagian Konten Scrollable
+            const SizedBox(height: 16),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: const [
+                    HelpCategoryCard(
+                      icon: Icons.local_shipping,
+                      title: 'Pengiriman',
+                      question: [
+                        'Bagaimana cara melacak status pengiriman saya?',
+                        'Bagaimana estimasi waktu pengiriman?',
+                        'Apakah bisa mengganti alamat pengiriman setelah transaksi?',
+                      ],
+                    ),
+                    HelpCategoryCard(
+                      icon: Icons.gavel,
+                      title: 'Lelang',
+                      question: [
+                        'Bagaimana cara mengikuti lelang?',
+                        'Apa saja syarat mengikuti lelang?',
+                        'Apakah lelang bersifat real-time?',
+                      ],
+                    ),
+                    HelpCategoryCard(
+                      icon: Icons.receipt_long,
+                      title: 'Transaksi',
+                      question: [
+                        'Bagaimana cara melihat riwayat transaksi?',
+                        'Apakah saya bisa membatalkan transaksi?',
+                        'Bagaimana jika pembayaran gagal?',
+                      ],
+                    ),
+                    HelpCategoryCard(
+                      icon: Icons.delivery_dining,
+                      title: 'Kurir',
+                      question: [
+                        'Bagaimana memilih kurir saat checkout?',
+                        'Kurir tidak datang, apa yang harus saya lakukan?',
+                        'Apakah bisa menjadwalkan ulang pengiriman?',
+                      ],
+                    ),
+                    SizedBox(height: 16), // spacing bawah
+                  ],
+                ),
               ),
             ),
           ],
