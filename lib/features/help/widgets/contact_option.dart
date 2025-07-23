@@ -7,11 +7,11 @@ class ContactOption extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ContactOption({
-    Key? key,
+    super.key,
     required this.iconPath,
     required this.label,
     this.onTap,
-  }) : super(key: key);
+  });
 
   String _normalizeLabel(String label) {
   if (!label.contains('\n')) {
