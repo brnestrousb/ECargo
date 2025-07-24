@@ -26,11 +26,21 @@ Halaman bantuan (Help Page) untuk aplikasi **E-Cargo**, dirancang menggunakan Fl
 
 ```plaintext
 lib/
+├── core/                          # Bagian global (utils, theme, dll)
+│   ├── constants/                 # Global const seperti color, text
+│   ├── theme/                     # Tema dark/light, font
+│   └── widgets/                   # Reusable (PrimaryButton, LoadingSpinner)
 │
 ├── features/
-│   └── help/
-│       ├── clippers/              # Custom clipper untuk header UI
-│       ├── widgets/               # Komponen UI reusable seperti ContactOption dan HelpCategoryCard
-│       └── help_home_page.dart    # Entry point untuk halaman bantuan
+│   └── help/                      # Fitur Bantuan
+|       ├── clippers/
+│       ├── models/               # HelpCategory, HelpItem
+│       ├── services/             # HelpService, data dummy/API
+│       ├── pages/                # UI/logic per layar (Home, Detail, Queue)
+│       └── widgets/              # Widget spesifik fitur ini (HelpCard, SearchBar)
 │
-└── main.dart
+├── routes/                        # Navigasi app
+│   └── app_routes.dart
+│
+└── main.dart                      # Entry point
+
