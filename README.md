@@ -1,16 +1,36 @@
-# ecargo_support
+# 🚚 E-Cargo Support Page
 
-A new Flutter project.
+Halaman bantuan (Help Page) untuk aplikasi **E-Cargo**, dirancang menggunakan Flutter. Menyediakan fitur kategori bantuan, opsi kontak, dan tampilan UI dinamis berbasis dekorasi kustom.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📱 Fitur Utama
 
-A few resources to get you started if this is your first Flutter project:
+- 📂 **Kategori Bantuan:** Menampilkan berbagai kategori bantuan secara visual dengan kartu UI interaktif.
+- 📞 **Opsi Kontak:** WhatsApp, Email, dan Telepon terintegrasi langsung dengan perangkat pengguna.
+- 🎨 **UI Kustom:** Menggunakan custom clipper untuk tampilan header dinamis.
+- 🌐 **Responsif:** Siap untuk digunakan pada berbagai ukuran layar mobile.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🏗️ Teknologi & Tools
+
+- [✔️] **Flutter** (Dart)
+- [✔️] Custom Clipper (untuk dekorasi UI)
+- [✔️] SVG Asset Handling via `flutter_svg`
+- [✔️] Clean Widget Composition
+
+---
+
+## 📁 Struktur Folder
+
+```plaintext
+lib/
+│
+├── features/
+│   └── help/
+│       ├── clippers/              # Custom clipper untuk header UI
+│       ├── widgets/               # Komponen UI reusable seperti ContactOption dan HelpCategoryCard
+│       └── help_home_page.dart    # Entry point untuk halaman bantuan
+│
+└── main.dart
