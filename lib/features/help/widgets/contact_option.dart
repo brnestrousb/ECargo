@@ -4,13 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ContactOption extends StatelessWidget {
   final String iconPath;
   final String label;
-  final VoidCallback? onTap;
 
   const ContactOption({
     super.key,
     required this.iconPath,
     required this.label,
-    this.onTap,
   });
 
   String _normalizeLabel(String label) {
@@ -25,7 +23,7 @@ class ContactOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onTap: onTap,
+        onTap: () => Navigator.pop(context),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -36,12 +34,12 @@ class ContactOption extends StatelessWidget {
               alignment: Alignment.center,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.transparent, // invisible background
+                color: Colors.white, // invisible background
               ),
               child: SvgPicture.asset(
                 iconPath,
-                width: 40,
-                height: 40,
+                width: 36,
+                height: 36,
                 fit: BoxFit.cover,
               ),
             ),
