@@ -1,4 +1,5 @@
 import 'package:ecargo_support/features/help/clippers/header_curve_clipper.dart';
+import 'package:ecargo_support/features/help/pages/help_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/contact_option.dart';
@@ -12,7 +13,11 @@ class HelpHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<HelpCategoryCard> helpCategories = [
       HelpCategoryCard(
-        icon: Icons.local_shipping_outlined,
+        icon: SvgPicture.asset(
+          'assets/icons/pengiriman.svg',
+          width: 1.5,
+          height: 1.5,
+        ),
         title: 'Pengiriman',
         question: [
           'Bagaimana cara melacak status pengiriman saya?',
@@ -25,7 +30,11 @@ class HelpHomePage extends StatelessWidget {
         ],
       ),
       HelpCategoryCard(
-        icon: Icons.gavel_outlined,
+        icon: SvgPicture.asset(
+          'assets/icons/lelang.svg',
+          width: 1.5,
+          height: 1.5,
+        ),
         title: 'Lelang',
         question: [
           'Bagaimana cara mengikuti lelang?',
@@ -34,7 +43,11 @@ class HelpHomePage extends StatelessWidget {
         ],
       ),
       HelpCategoryCard(
-        icon: Icons.receipt_long_outlined,
+        icon: SvgPicture.asset(
+          'assets/icons/transaksi.svg',
+          width: 1.5,
+          height: 1.5,
+        ),
         title: 'Transaksi',
         question: [
           'Bagaimana cara melihat riwayat transaksi?',
@@ -42,7 +55,11 @@ class HelpHomePage extends StatelessWidget {
         ],
       ),
       HelpCategoryCard(
-        icon: Icons.local_mall_outlined,
+        icon: SvgPicture.asset(
+          'assets/icons/kurir.svg',
+          width: 1.5,
+          height: 1.5,
+        ),
         title: 'Kurir',
         question: [
           'Kurir mana saja yang tersedia?',
@@ -121,20 +138,33 @@ class HelpHomePage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ContactOption(
-                          iconPath: 'assets/icons/call.svg',
-                          label: 'Hubungi\nKami',
-                          // onTap: () {},
+                        Expanded(
+                          child: ContactOption(
+                            iconPath: 'assets/icons/call.svg',
+                            label: 'Hubungi\nKami',
+                            onTap: () {                         
+                               Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HelpDetailPage(),
+                                ),
+                               );
+                            },
+                          ),
                         ),
-                        ContactOption(
-                          iconPath: 'assets/icons/whatsapp.svg',
-                          label: 'Whatsapp',
-                          // onTap: () {},
+                        Expanded(
+                          child: ContactOption(
+                            iconPath: 'assets/icons/whatsapp.svg',
+                            label: 'Whatsapp',
+                            onTap: () {},
+                          ),
                         ),
-                        ContactOption(
-                          iconPath: 'assets/icons/history.svg',
-                          label: 'Riwayat\nBantuan',
-                          // onTap: () {},
+                        Expanded(
+                          child: ContactOption(
+                            iconPath: 'assets/icons/history.svg',
+                            label: 'Riwayat\nBantuan',
+                            onTap: () {},
+                          ),
                         ),
                       ],
                     ),

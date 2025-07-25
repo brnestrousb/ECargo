@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HelpCategoryCard extends StatefulWidget {
   const HelpCategoryCard({
@@ -7,7 +8,7 @@ class HelpCategoryCard extends StatefulWidget {
     required this.title,
     required this.question,
   });
-  final IconData icon;
+  final SvgPicture icon;
   final String title;
   final List<String> question;
 
@@ -22,7 +23,7 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       elevation: 1.5,
       child: InkWell(
         onTap: () {
@@ -40,7 +41,7 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
             children: [
               Row(
                 children: [
-                  Icon(widget.icon, color: Colors.black),
+                  SizedBox(width: 24, height: 24, child: widget.icon),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
@@ -78,7 +79,7 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
                               size: 18,
                             ),
                             onTap: () {
-                              // TODO: handle klik pertanyaan
+                                
                             },
                           ),
                         ],

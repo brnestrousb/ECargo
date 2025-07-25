@@ -13,6 +13,8 @@ dependencies:
   google_fonts: ^6.2.1
   provider: ^6.1.5
   flutter_custom_clippers: ^2.1.0
+  intl: ^0.20.2
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +30,10 @@ flutter:
     - assets/icons/whatsapp.svg
     - assets/icons/history.svg
     - assets/icons/arrow_back.svg
+    - assets/icons/pengiriman.svg
+    - assets/icons/lelang.svg
+    - assets/icons/transaksi.svg
+    - assets/icons/kurir.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
