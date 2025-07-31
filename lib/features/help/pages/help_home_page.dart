@@ -1,6 +1,7 @@
 import 'package:ecargo_support/features/help/clippers/header_curve_clipper.dart';
-import 'package:ecargo_support/features/help/models/support_model.dart';
+//import 'package:ecargo_support/features/help/models/support_model.dart';
 import 'package:ecargo_support/features/help/pages/help_detail_page.dart';
+import 'package:ecargo_support/features/help/pages/hub_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/contact_option.dart';
@@ -20,49 +21,37 @@ class HelpHomePage extends StatelessWidget {
           height: 1.5,
         ),
         title: 'Pengiriman',
-        question: [
-          'Bagaimana cara melacak status pengiriman saya?',
-          'Berapa lama estimasi waktu pengiriman?',
-          'Bagaimana jika barang saya belum sampai padahal status sudah terkirim?',
-          'Apakah saya bisa mengganti alamat pengiriman setelah pembayaran?',
-          'Apa yang terjadi jika kurir tidak menemukan alamat saya?',
-          'Apakah saya bisa memilih kurir sendiri?',
-          'Bagaimana cara mengklaim barang yang rusak saat diterima?',
-        ],
+        question: 'Bagaimana cara melacak status pengiriman saya?',
         onTap: () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => SupportDetailPage(
-                content: SupportDetailContent(
-                  question: 'Bagaimana cara melacak status pengiriman saya?',
-                  introText: '''
-                  Setelah Anda melakukan pembayaran dan pesanan berhasil dikonfirmasi, 
-                  sistem akan otomatis mengirimkan nomor resi (tracking number) melalui halaman Transaksi Anda.
-                  ''',
-                  steps: [
-                    SupportStep(title: 'Masuk ke menu "Transaksi"', description: ''' 
-                    Temukan pesanan yang ingin Anda lacak di daftar pesanan Anda.
-                    '''),
-                    SupportStep(title: 'Klik pada detail ...', description: '''
-                     Anda akan melihat informasi lengkap mengenai status pemesanan, termasuk status pengiriman dan nomor resi.
-                    '''),
-                    SupportStep(title: 'Gunakan nomor resi untuk pelacakan real-time', description: '''
-                    Beberapa sistem memungkinkan Anda melacak langsung dari aplikasi, 
-                    sementara lainnya menyediakan tautan ke situs resmi kurir untuk melihat perjalanan paket secara lebih detail.
-                    '''),
+              builder: (_) => HelpDetailPage(
+                  title: 'Bagaimana cara melacak status pengiriman saya?',
+                  paragraphs: [
+                    'Setelah Anda melakukan pembayaran dan pesanan berhasil\ndikonfirmasi, sistem akan otomatis mengirimkan nomor resi (tracking \nnumber) melalui halaman Transaksi Anda.',
+                    'Untuk melacak status pengiriman:',
                   ],
-                  statuses: [
+                  orderedSteps: [
+                    'Masuk ke menu “Transaksi”',
+                    'Klik pada detail pesanan tersebut',
+                    'Gunakan nomor resi untuk pelacakan real-time',
+                  ],
+                  description: [
+                    "Temukan pesanan yang ingin Anda lacak di daftar pesanan Anda.",
+                    "Anda akan melihat informasi lengkap mengenai status pemesanan, termasuk status pengiriman dan nomor resi.",
+                    "Beberapa sistem memungkinkan Anda melacak langsung dari aplikasi, sementara lainnya menyediakan tautan ke situs resmi kurir untuk melihat perjalanan paket secara lebih detail.",
+                  ],
+                    
+                  unorderedSteps: [
                     'Paket sedang dikemas',
                     'Paket sudah diambil kurir',
                     'Dalam perjalanan',
                     'Sedang dikirim',
                     'Telah diterima',
                   ],
-                  footerNote:
-                      'Jika status tidak berubah dalam waktu lama, ...',
+                  closingNote: 'Jika status tidak berubah dalam waktu lama, Anda bisa menggunakan fitur "Buat Bantuan" untuk menghubungi tim layanan pelanggan.',
                 ),
-              ),
             ),
           );
         }
@@ -74,11 +63,7 @@ class HelpHomePage extends StatelessWidget {
           height: 1.5,
         ),
         title: 'Lelang',
-        question: [
-          'Bagaimana cara mengikuti lelang?',
-          'Apakah ada deposit untuk lelang?',
-          'Bagaimana jika saya memenangkan lelang?',
-        ],
+        question: 'Bagaimana cara mengikuti lelang?',
         onTap: (){},
       ),
       HelpCategoryCard(
@@ -88,10 +73,7 @@ class HelpHomePage extends StatelessWidget {
           height: 1.5,
         ),
         title: 'Transaksi',
-        question: [
-          'Bagaimana cara melihat riwayat transaksi?',
-          'Apa yang harus dilakukan jika pembayaran gagal?',
-        ],
+        question: 'Bagaimana cara melihat riwayat transaksi?',
         onTap: (){},
       ),
       HelpCategoryCard(
@@ -101,10 +83,7 @@ class HelpHomePage extends StatelessWidget {
           height: 1.5,
         ),
         title: 'Kurir',
-        question: [
-          'Kurir mana saja yang tersedia?',
-          'Bagaimana cara menghubungi kurir?',
-        ],
+        question: 'Kurir mana saja yang tersedia?',
         onTap: (){},
       ),
     ];
@@ -187,7 +166,7 @@ class HelpHomePage extends StatelessWidget {
                                Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SupportDetailPage(), //Expected an identifier
+                                  builder: (context) => const HubPage(),
                                 ),
                                );
                             },
@@ -223,6 +202,51 @@ class HelpHomePage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    // Ticket Info Button (Yellow)
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     // Arahkan ke halaman detail tiket atau dialog
+                    //   },
+                    //   child: Container(
+                    //     width: double.infinity,
+                    //     padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    //     decoration: BoxDecoration(
+                    //       color: const Color(0xFFFFD233),
+                    //       borderRadius: BorderRadius.circular(24),
+                    //     ),
+                    //     child: Row(
+                    //       children: [
+                    //         // Dot merah
+                    //         Container(
+                    //           width: 10,
+                    //           height: 10,
+                    //           decoration: const BoxDecoration(
+                    //             shape: BoxShape.circle,
+                    //             color: Colors.red,
+                    //           ),
+                    //         ),
+                    //         const SizedBox(width: 12),
+                    //         const Expanded(
+                    //           child: Text(
+                    //             'Bantuan Anda: BNTN29304',
+                    //             style: TextStyle(
+                    //               color: Colors.black,
+                    //               fontWeight: FontWeight.w600,
+                    //               fontSize: 14,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         const Icon(
+                    //           Icons.arrow_forward_ios,
+                    //           size: 16,
+                    //           color: Colors.black,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    //const SizedBox(height: 16),
+
                     const SizedBox(height: 16),
                   ],
                 ),

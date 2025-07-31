@@ -11,7 +11,7 @@ class HelpCategoryCard extends StatefulWidget {
   });
   final SvgPicture icon;
   final String title;
-  final List<String> question;
+  final String question;
   final VoidCallback? onTap;
 
   @override
@@ -65,24 +65,20 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
                 if (isExpanded) const SizedBox(height: 12),
                 if (isExpanded)
                   Column(
-                    children: widget.question.map((q) {
-                      return Column(
-                        children: [
-                          const Divider(),
-                          ListTile(
-                            dense: true,
-                            title: Text(
-                              q,
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                            trailing: const Icon(Icons.chevron_right, size: 18),
-                            onTap: () {
-                              widget.onTap;
-                            },
-                          ),
-                        ],
-                      );
-                    }).toList(),
+                    children: [
+                      const Divider(),
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          widget.question,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        trailing: const Icon(Icons.chevron_right, size: 18),
+                        onTap: () {
+                          widget.onTap!();
+                        },
+                      ),
+                    ],
                   ),
               ],
             ),
