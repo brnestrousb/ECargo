@@ -7,10 +7,12 @@ class HelpCategoryCard extends StatefulWidget {
     required this.icon,
     required this.title,
     required this.question,
+    required this.onTap,
   });
   final SvgPicture icon;
   final String title;
   final List<String> question;
+  final VoidCallback? onTap;
 
   @override
   State<HelpCategoryCard> createState() => _HelpCategoryCardState();
@@ -35,33 +37,32 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
           child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SizedBox(width: 24, height: 24, child: widget.icon),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      widget.title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(width: 24, height: 24, child: widget.icon),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        widget.title,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Icon(
-                    isExpanded
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down,
-                        color: Colors.black54,
-                  ),
-                ],
-              ),
-              if (isExpanded)
-                  const SizedBox(height: 12),
+                    Icon(
+                      isExpanded
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down,
+                      color: Colors.black54,
+                    ),
+                  ],
+                ),
+                if (isExpanded) const SizedBox(height: 12),
                 if (isExpanded)
                   Column(
                     children: widget.question.map((q) {
@@ -74,12 +75,9 @@ class _HelpCategoryCardState extends State<HelpCategoryCard> {
                               q,
                               style: const TextStyle(fontSize: 14),
                             ),
-                            trailing: const Icon(
-                              Icons.chevron_right,
-                              size: 18,
-                            ),
+                            trailing: const Icon(Icons.chevron_right, size: 18),
                             onTap: () {
-                                
+                              widget.onTap;
                             },
                           ),
                         ],

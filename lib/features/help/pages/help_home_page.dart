@@ -1,4 +1,5 @@
 import 'package:ecargo_support/features/help/clippers/header_curve_clipper.dart';
+import 'package:ecargo_support/features/help/models/support_model.dart';
 import 'package:ecargo_support/features/help/pages/help_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,6 +29,43 @@ class HelpHomePage extends StatelessWidget {
           'Apakah saya bisa memilih kurir sendiri?',
           'Bagaimana cara mengklaim barang yang rusak saat diterima?',
         ],
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => SupportDetailPage(
+                content: SupportDetailContent(
+                  question: 'Bagaimana cara melacak status pengiriman saya?',
+                  introText: '''
+                  Setelah Anda melakukan pembayaran dan pesanan berhasil dikonfirmasi, 
+                  sistem akan otomatis mengirimkan nomor resi (tracking number) melalui halaman Transaksi Anda.
+                  ''',
+                  steps: [
+                    SupportStep(title: 'Masuk ke menu "Transaksi"', description: ''' 
+                    Temukan pesanan yang ingin Anda lacak di daftar pesanan Anda.
+                    '''),
+                    SupportStep(title: 'Klik pada detail ...', description: '''
+                     Anda akan melihat informasi lengkap mengenai status pemesanan, termasuk status pengiriman dan nomor resi.
+                    '''),
+                    SupportStep(title: 'Gunakan nomor resi untuk pelacakan real-time', description: '''
+                    Beberapa sistem memungkinkan Anda melacak langsung dari aplikasi, 
+                    sementara lainnya menyediakan tautan ke situs resmi kurir untuk melihat perjalanan paket secara lebih detail.
+                    '''),
+                  ],
+                  statuses: [
+                    'Paket sedang dikemas',
+                    'Paket sudah diambil kurir',
+                    'Dalam perjalanan',
+                    'Sedang dikirim',
+                    'Telah diterima',
+                  ],
+                  footerNote:
+                      'Jika status tidak berubah dalam waktu lama, ...',
+                ),
+              ),
+            ),
+          );
+        }
       ),
       HelpCategoryCard(
         icon: SvgPicture.asset(
@@ -41,6 +79,7 @@ class HelpHomePage extends StatelessWidget {
           'Apakah ada deposit untuk lelang?',
           'Bagaimana jika saya memenangkan lelang?',
         ],
+        onTap: (){},
       ),
       HelpCategoryCard(
         icon: SvgPicture.asset(
@@ -53,6 +92,7 @@ class HelpHomePage extends StatelessWidget {
           'Bagaimana cara melihat riwayat transaksi?',
           'Apa yang harus dilakukan jika pembayaran gagal?',
         ],
+        onTap: (){},
       ),
       HelpCategoryCard(
         icon: SvgPicture.asset(
@@ -65,6 +105,7 @@ class HelpHomePage extends StatelessWidget {
           'Kurir mana saja yang tersedia?',
           'Bagaimana cara menghubungi kurir?',
         ],
+        onTap: (){},
       ),
     ];
     return Scaffold(
@@ -146,7 +187,7 @@ class HelpHomePage extends StatelessWidget {
                                Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const HelpDetailPage(),
+                                  builder: (context) => SupportDetailPage(), //Expected an identifier
                                 ),
                                );
                             },
@@ -202,7 +243,8 @@ class HelpHomePage extends StatelessWidget {
                     return HelpCategoryCard(
                       icon: category.icon,
                       title: category.title,
-                      question: category.question,
+                      question: category.question, 
+                      onTap: category.onTap,
                     );
                   },
                 ),
