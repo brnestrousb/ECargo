@@ -110,10 +110,20 @@ class _SupportDetailPageState extends State<HubPage> {
     _saveState();
   }
 
-  String _generateTicketNumber() {
-    final random = Random();
-    return 'BNTN${100000 + random.nextInt(900000)}';
-  }
+  String _generateTicketNumber({int totalLength = 22}) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const prefix = 'ECRG';
+
+  final rand = Random();
+  final randomLength = totalLength - prefix.length;
+
+  final randomPart = List.generate(
+    randomLength,
+    (_) => chars[rand.nextInt(chars.length)],
+  ).join();
+
+  return '$prefix$randomPart';
+}
 
   Future<bool?> _showConfirmationDialog() {
     return showDialog<bool>(
@@ -129,7 +139,7 @@ class _SupportDetailPageState extends State<HubPage> {
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF004B87),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(15),
               ),
             ),
             onPressed: () => Navigator.pop(context, true),
@@ -149,16 +159,16 @@ class _SupportDetailPageState extends State<HubPage> {
 
   Widget _buildQueueInfo() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: Color(0xFFF6F8F9),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Antrian saat ini:'),
               const SizedBox(height: 4),
@@ -167,6 +177,7 @@ class _SupportDetailPageState extends State<HubPage> {
           ),
           Container(width: 1, height: 40, color: Color(0xFFCECECE)),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Waktu tunggu (+-):'),
               Text(
@@ -279,7 +290,7 @@ class _SupportDetailPageState extends State<HubPage> {
           backgroundColor: hasTicket ? Colors.red : const Color(0xFF004B87),
           padding: const EdgeInsets.symmetric(vertical: 14),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         child: Text(
