@@ -1,9 +1,11 @@
 import 'package:ecargo_support/features/help/pages/help_chat_page.dart';
+import 'package:ecargo_support/features/help/pages/ticket_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecargo_support/features/help/clippers/header_curve_clipper.dart';
 import 'package:ecargo_support/features/help/pages/help_detail_page.dart';
 import 'package:ecargo_support/features/help/pages/hub_page.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/contact_option.dart';
 import '../widgets/help_category_card.dart';
@@ -16,19 +18,50 @@ class HelpHomePage extends StatefulWidget {
   State<HelpHomePage> createState() => _HelpHomePageState();
 }
 
+// class TicketProvider with ChangeNotifier {
+//   static const _key = 'ticketNumber';
+//   String? _ticketNumber;
+//   String? get ticketNumber => _ticketNumber;
+
+//   TicketProvider() {
+//     _loadTicketNumber();
+//   }
+
+//   Future<void> _loadTicketNumber() async {
+//     final prefs = await SharedPreferences.getInstance();
+//     _ticketNumber = prefs.getString(_key);
+//     notifyListeners();
+//   }
+
+//   Future<void> setTicketNumber(String number) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     await prefs.setString(_key, number);
+//     _ticketNumber = number;
+//     notifyListeners();
+//   }
+
+//   Future<void> clearTicket() async {
+//     final prefs = await SharedPreferences.getInstance();
+//     await prefs.remove(_key);
+//     _ticketNumber = null;
+//     notifyListeners();
+//   }
+// }
+
 class _HelpHomePageState extends State<HelpHomePage> {
   bool isTicketActive = false;
-  String ticketNumber = "";
+  String? ticketNumber;
 
   @override
   void initState() {
     super.initState();
+    Provider.of<TicketProvider>(context, listen: false).ticketNumber;
     loadTicketStatus();
   }
 
   Future<void> loadTicketStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedTicket = prefs.getString('ticketNumber');
+    final savedTicket = prefs.getString('generatedTicketNumber');
     if (savedTicket != null && savedTicket.isNotEmpty) {
       setState(() {
         isTicketActive = true;
@@ -39,7 +72,7 @@ class _HelpHomePageState extends State<HelpHomePage> {
 
   Future<void> cancelTicket() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('ticketNumber');
+    await prefs.remove('generatedTicketNumber');
     setState(() {
       isTicketActive = false;
       ticketNumber = "";
@@ -130,6 +163,7 @@ class _HelpHomePageState extends State<HelpHomePage> {
   }
 
   Widget _buildTopHeader(BuildContext context) {
+    final numberActive = context.watch<TicketProvider>().ticketNumber;
     return ClipPath(
       clipper: HeaderCurveClipper(),
       child: Container(
@@ -231,25 +265,26 @@ class _HelpHomePageState extends State<HelpHomePage> {
                 ),
               ),
             ),
-            _buildTicketButton(context, ticketNumber),
-            const SizedBox(height: 16),
+            if (numberActive != null) _buildTicketButton(context, numberActive as String?)
           ],
         ),
       ),
     );
   }
 
-  Widget _buildTicketButton(BuildContext context, String ticketNumber) {
+  Widget _buildTicketButton(BuildContext context, String? numberActive) {
+    numberActive = ticketNumber;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(
+            //Navigator.pop(context, numberActive);
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => HelpChatPage(ticketNumber: ticketNumber),
+                builder: (context) => HelpChatPage(ticketNumber: numberActive!),
               ),
             );
           },
@@ -274,7 +309,7 @@ class _HelpHomePageState extends State<HelpHomePage> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Bantuan Anda: $ticketNumber',
+                    'Bantuan Anda: $numberActive',
                     style: const TextStyle(
                       fontSize: 16,
                       fontFamily: "Poppins",
@@ -297,7 +332,7 @@ class _HelpHomePageState extends State<HelpHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final helpCategories = _buildHelpCategories(context);
+    final helpCategories = _buildHelpCategories(context);    
     return Scaffold(
       backgroundColor: const Color(0xFFF2F4F7),
       body: SafeArea(

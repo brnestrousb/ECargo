@@ -1,3 +1,4 @@
+import 'package:ecargo_support/features/help/pages/help_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +11,10 @@ class HelpChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HelpHomePage())),
+        ),
         title: Text('No. Bantuan: $ticketNumber'),
         actions: [
           IconButton(
@@ -20,7 +25,7 @@ class HelpChatPage extends StatelessWidget {
                 const SnackBar(content: Text('Nomor bantuan disalin')),
               );
             },
-          )
+          ),
         ],
       ),
       body: const Center(

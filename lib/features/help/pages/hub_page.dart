@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:ecargo_support/features/help/pages/help_detail_page.dart';
+import 'package:ecargo_support/features/help/pages/ticket_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ecargo_support/features/help/models/support_model.dart';
@@ -39,7 +41,7 @@ class _SupportDetailPageState extends State<HubPage> {
       currentQueue = prefs.getInt('currentQueue') ?? 0;
       waitTime = Duration(seconds: prefs.getInt('waitTime') ?? 0);
       hasTicket = prefs.getBool('hasTicket') ?? false;
-      generatedTicketNumber = prefs.getString('ticketNumber') ?? '';
+      generatedTicketNumber = prefs.getString('generatedTicketNumber') ?? '';
       userQueueNumber = prefs.getInt('userQueueNumber') ?? 0;
       final createdAtStr = prefs.getString('ticketCreatedAt');
       if (createdAtStr != null) {
@@ -57,7 +59,7 @@ class _SupportDetailPageState extends State<HubPage> {
     await prefs.setInt('currentQueue', currentQueue);
     await prefs.setInt('waitTime', waitTime.inSeconds);
     await prefs.setBool('hasTicket', hasTicket);
-    await prefs.setString('ticketNumber', generatedTicketNumber);
+    await prefs.setString('generatedTicketNumber', generatedTicketNumber);
     await prefs.setInt('userQueueNumber', userQueueNumber);
     if (ticketCreatedAt != null) {
       await prefs.setString(
@@ -83,21 +85,34 @@ class _SupportDetailPageState extends State<HubPage> {
 
   Future<void> _createTicket() async {
     setState(() => isLoading = true);
+
     await Future.delayed(const Duration(seconds: 2));
+
+    final newTicketNumber = _generateTicketNumber();
+    final newQueueNumber = currentQueue + 1;
+    final createdAt = DateTime.now();
+    final estimatedWait = const Duration(hours: 1);
+    await Provider.of<TicketProvider>(
+        // ignore: use_build_context_synchronously
+        context,
+        listen: false,
+      ).setTicketNumber(newTicketNumber);
+
     setState(() {
       hasTicket = true;
-      generatedTicketNumber = _generateTicketNumber();
-      userQueueNumber = currentQueue + 1;
-      ticketCreatedAt = DateTime.now();
-      currentQueue += 1;
-      waitTime = const Duration(hours: 1);
+      generatedTicketNumber = newTicketNumber;
+      userQueueNumber = newQueueNumber;
+      ticketCreatedAt = createdAt;
+      currentQueue = newQueueNumber;
+      waitTime = estimatedWait;
       isLoading = false;
     });
     _startTimer();
     _saveState();
   }
 
-  void _cancelTicket() {
+  Future<void> _cancelTicket() async {
+    await Provider.of<TicketProvider>(context, listen: false).clearTicket();
     setState(() {
       hasTicket = false;
       generatedTicketNumber = '';
@@ -111,19 +126,19 @@ class _SupportDetailPageState extends State<HubPage> {
   }
 
   String _generateTicketNumber({int totalLength = 22}) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  const prefix = 'ECRG';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const prefix = 'ECRG';
 
-  final rand = Random();
-  final randomLength = totalLength - prefix.length;
+    final rand = Random();
+    final randomLength = totalLength - prefix.length;
 
-  final randomPart = List.generate(
-    randomLength,
-    (_) => chars[rand.nextInt(chars.length)],
-  ).join();
+    final randomPart = List.generate(
+      randomLength,
+      (_) => chars[rand.nextInt(chars.length)],
+    ).join();
 
-  return '$prefix$randomPart';
-}
+    return '$prefix$randomPart';
+  }
 
   Future<bool?> _showConfirmationDialog() {
     return showDialog<bool>(
