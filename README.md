@@ -1,7 +1,6 @@
 # 🚚 E-Cargo Support Page
 
-Halaman bantuan (Help Page) untuk aplikasi **E-Cargo**, dirancang menggunakan Flutter. Menyediakan fitur kategori bantuan, opsi kontak, dan tampilan UI dinamis berbasis dekorasi kustom.
-
+Halaman bantuan (Help Page) untuk aplikasi **E-Cargo**, dirancang menggunakan Flutter. Menyediakan fitur kategori bantuan, Generate code, Chat Page
 ---
 
 ## 📱 Fitur Utama
@@ -13,11 +12,12 @@ Halaman bantuan (Help Page) untuk aplikasi **E-Cargo**, dirancang menggunakan Fl
 
 ---
 
-## 🏗️ Teknologi & Tools
+## 🏗️ Tools
 
 - [✔️] **Flutter** (Dart)
 - [✔️] Custom Clipper (untuk dekorasi UI)
 - [✔️] SVG Asset Handling via `flutter_svg`
+- [✔️] Use Shared Preferences via `shared_preferences`
 - [✔️] Clean Widget Composition
 
 ---
@@ -26,21 +26,18 @@ Halaman bantuan (Help Page) untuk aplikasi **E-Cargo**, dirancang menggunakan Fl
 
 ```plaintext
 lib/
-├── core/                          # Bagian global (utils, theme, dll)
-│   ├── constants/                 # Global const seperti color, text
-│   ├── theme/                     # Tema dark/light, font
-│   └── widgets/                   # Reusable (PrimaryButton, LoadingSpinner)
-│
 ├── features/
-│   └── help/                      # Fitur Bantuan
-|       ├── clippers/
-│       ├── models/               # HelpCategory, HelpItem
-│       ├── services/             # HelpService, data dummy/API
-│       ├── pages/                # UI/logic per layar (Home, Detail, Queue)
-│       └── widgets/              # Widget spesifik fitur ini (HelpCard, SearchBar)
+│   └── help/                    
+|       ├── clippers/header_curve_clipper.dart               
+│       ├── pages/  
+|       |   └── help_chat_page.dart         #Template Page untuk Chat CS
+|       |   └── help_detail_page.dart       #Template Detail untuk Question
+|       |   └── help_home_page.dart         #Titik Utama 
+|       |   └── hub_page.dart               #Untuk Code Generator
+|       |   └── ticket_provider.dart        #Untuk sinkronisasi persistensi data
+│       └── widgets/ 
+|           └── contact_option.dart
+|           └── help_category.dart        
 │
-├── routes/                        # Navigasi app
-│   └── app_routes.dart
-│
-└── main.dart                      # Entry point
+└── main.dart                      
 
