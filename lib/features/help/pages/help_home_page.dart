@@ -1,11 +1,11 @@
 import 'package:ecargo_support/features/help/pages/help_chat_page.dart';
-import 'package:ecargo_support/features/help/pages/ticket_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecargo_support/features/help/clippers/header_curve_clipper.dart';
 import 'package:ecargo_support/features/help/pages/help_detail_page.dart';
 import 'package:ecargo_support/features/help/pages/hub_page.dart';
 import 'package:provider/provider.dart';
+import 'package:ecargo_support/features/help/pages/ticket_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/contact_option.dart';
 import '../widgets/help_category_card.dart';
@@ -17,36 +17,6 @@ class HelpHomePage extends StatefulWidget {
   @override
   State<HelpHomePage> createState() => _HelpHomePageState();
 }
-
-// class TicketProvider with ChangeNotifier {
-//   static const _key = 'ticketNumber';
-//   String? _ticketNumber;
-//   String? get ticketNumber => _ticketNumber;
-
-//   TicketProvider() {
-//     _loadTicketNumber();
-//   }
-
-//   Future<void> _loadTicketNumber() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     _ticketNumber = prefs.getString(_key);
-//     notifyListeners();
-//   }
-
-//   Future<void> setTicketNumber(String number) async {
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.setString(_key, number);
-//     _ticketNumber = number;
-//     notifyListeners();
-//   }
-
-//   Future<void> clearTicket() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.remove(_key);
-//     _ticketNumber = null;
-//     notifyListeners();
-//   }
-// }
 
 class _HelpHomePageState extends State<HelpHomePage> {
   bool isTicketActive = false;
@@ -163,7 +133,7 @@ class _HelpHomePageState extends State<HelpHomePage> {
   }
 
   Widget _buildTopHeader(BuildContext context) {
-    final numberActive = context.watch<TicketProvider>().ticketNumber;
+    final String? numberActive = context.watch<TicketProvider>().ticketNumber;
     return ClipPath(
       clipper: HeaderCurveClipper(),
       child: Container(
@@ -265,7 +235,7 @@ class _HelpHomePageState extends State<HelpHomePage> {
                 ),
               ),
             ),
-            if (numberActive != null) _buildTicketButton(context, numberActive as String?)
+            if (numberActive != null) _buildTicketButton(context, numberActive)
           ],
         ),
       ),
@@ -273,15 +243,13 @@ class _HelpHomePageState extends State<HelpHomePage> {
   }
 
   Widget _buildTicketButton(BuildContext context, String? numberActive) {
-    numberActive = ticketNumber;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            //Navigator.pop(context, numberActive);
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => HelpChatPage(ticketNumber: numberActive!),

@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TicketProvider extends ChangeNotifier {
@@ -6,7 +6,7 @@ class TicketProvider extends ChangeNotifier {
 
   String? get ticketNumber => _ticketNumber;
 
-  bool get hasTicket => _ticketNumber != null;
+  String? get hasTicket => _ticketNumber;
 
   Future<void> loadTicket() async {
     final prefs = await SharedPreferences.getInstance();

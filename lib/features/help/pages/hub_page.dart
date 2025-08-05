@@ -86,17 +86,16 @@ class _SupportDetailPageState extends State<HubPage> {
   Future<void> _createTicket() async {
     setState(() => isLoading = true);
 
-    await Future.delayed(const Duration(seconds: 2));
+    //await Future.delayed(const Duration(seconds: 2));
 
     final newTicketNumber = _generateTicketNumber();
     final newQueueNumber = currentQueue + 1;
     final createdAt = DateTime.now();
     final estimatedWait = const Duration(hours: 1);
     await Provider.of<TicketProvider>(
-        // ignore: use_build_context_synchronously
-        context,
-        listen: false,
-      ).setTicketNumber(newTicketNumber);
+      context,
+      listen: false,
+    ).setTicketNumber(newTicketNumber);
 
     setState(() {
       hasTicket = true;
