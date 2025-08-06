@@ -15,11 +15,10 @@ Halaman bantuan (Help Page) untuk aplikasi **E-Cargo**, dirancang menggunakan Fl
 ## 🏗️ Tools
 
 - [✔️] **Flutter** (Dart)
-- [✔️] Custom Clipper (untuk dekorasi UI)
 - [✔️] SVG Asset Handling via `flutter_svg`
-- [✔️] Use Shared Preferences via `shared_preferences`
-- [✔️] Clean Widget Composition
-
+- [✔️] Shared Preferences via `shared_preferences`
+- [✔️] Image Picker untuk Edit Profil via `image_picker`
+- [✔️] Url Launcher untuk Beri Rating di Playtore `url_launcher`
 ---
 
 ## 📁 Struktur Folder
@@ -28,16 +27,26 @@ Halaman bantuan (Help Page) untuk aplikasi **E-Cargo**, dirancang menggunakan Fl
 lib/
 ├── features/
 │   └── help/                    
-|       ├── clippers/header_curve_clipper.dart               
+|       ├── clippers/header_curve_clipper.dart   
+|       ├── others/
+|       |   └── atribusi_data.dart          #Tampilan Atribusi data Ecargo
+|       |   └── beri_rating.dart            #Tampilan Beri Rating yang terhubung ke PlayStore
+|       |   └── kebijakan_privasi.dart      #Tampilan Kebijakan Privasi Ecargo
+|       |   └── ketentuan_layanan.dart      #Tampilan Ketentuan Layanan Ecargo
+|       |   └── pilih_bahasa.dart           #Tampilan Pilih Bahasa
+|       |   └── profile_edit.dart           #Tampilan Edit Profil User
+|       |
 │       ├── pages/  
+|       |   └── dev_menu.dart               #Tampilan opsi untuk meninjau keseluruhan page memastikan agar fungsionalitas berjalan
 |       |   └── help_chat_page.dart         #Template Page untuk Chat CS
 |       |   └── help_detail_page.dart       #Template Detail untuk Question
 |       |   └── help_home_page.dart         #Titik Utama 
 |       |   └── hub_page.dart               #Untuk Code Generator
 |       |   └── ticket_provider.dart        #Untuk sinkronisasi persistensi data
+|       |
 │       └── widgets/ 
 |           └── contact_option.dart
-|           └── help_category.dart        
-│
+|           └── help_category.dart    
+|         
 └── main.dart                      
 
